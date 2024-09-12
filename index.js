@@ -1,7 +1,7 @@
 var client_id = Date.now();
 document.querySelector("#ws-id").textContent = client_id;
 
-var ws = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
+var ws = new WebSocket(`ws://127.0.0.1:8000/ws/${client_id}`);
 var statusElement = document.getElementById('status');
 
 ws.onmessage = function(event) {
