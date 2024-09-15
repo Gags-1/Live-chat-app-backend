@@ -1,14 +1,7 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import websocket
-from .database import engine, Base
-from .models import User  # Import your models
 
-# Create tables if they don't exist
-Base.metadata.create_all(bind=engine)
-
-# Import routers
-from .routers import users, websocket
 
 app = FastAPI()
 
@@ -27,6 +20,4 @@ app.add_middleware(
 def check():
     return {"message": "HELLO HELLO"}
 
-# Include routers
 app.include_router(websocket.router)
-app.include_router(users.router)
