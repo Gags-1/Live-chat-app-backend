@@ -6,14 +6,14 @@ router = APIRouter(
 
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: dict[int, WebSocket] = {}  # Store connections by client_id
+        self.active_connections: dict[str, WebSocket] = {}  # Store connections by client_id (username)
 
-    async def connect(self, websocket: WebSocket, client_id: int):
+    async def connect(self, websocket: WebSocket, client_id: str):
         await websocket.accept()
         self.active_connections[client_id] = websocket
         await self.send_online_users_list()  # Send updated user list to all clients
 
-    def disconnect(self, client_id: int):
+    def disconnect(self, client_id: str):
         if client_id in self.active_connections:
             del self.active_connections[client_id]
 
@@ -31,7 +31,7 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 @router.websocket("/ws/{client_id}")
-async def websocket_endpoint(websocket: WebSocket, client_id: int):
+async def websocket_endpoint(websocket: WebSocket, client_id: str):
     await manager.connect(websocket, client_id)
     await manager.broadcast(f"Client #{client_id} has joined the chat!")
 
