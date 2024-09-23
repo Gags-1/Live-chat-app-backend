@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import websocket
+from .routers import websocket, user, auth
 
 
 app = FastAPI()
@@ -20,3 +20,5 @@ def check():
     return {"message": "HELLO HELLO"}
 
 app.include_router(websocket.router)
+app.include_router(user.router)
+app.include_router(auth.router)
