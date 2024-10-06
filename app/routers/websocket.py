@@ -19,7 +19,7 @@ class ConnectionManager:
             del self.active_connections[client_id]
     
     async def send_online_users_list(self):
-        user_list = ",".join([f"Client#{client_id}" for client_id in self.active_connections.keys()])
+        user_list = ",".join([f"#{client_id}" for client_id in self.active_connections.keys()])
         for connection in self.active_connections.values():
             await connection.send_text(f"online_users:{user_list}")
 
