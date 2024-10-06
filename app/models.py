@@ -9,3 +9,11 @@ class User(Base):
     email=Column(String, nullable=False, unique=True, index=True)
     password=Column(String,nullable=False)
     created_at=Column(TIMESTAMP(timezone=True),nullable=False, server_default=text('now()'))
+
+class Message(Base):
+    __tablename__ = "messages"
+
+    id = Column(Integer, primary_key=True, index=True)
+    content = Column(String, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    timestamp = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
