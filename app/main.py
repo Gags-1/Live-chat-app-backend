@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import websocket, user, auth
+from .routers import websocket, user, auth, friend
 
 
 app = FastAPI()
@@ -22,3 +22,4 @@ def check():
 app.include_router(websocket.router)
 app.include_router(user.router)
 app.include_router(auth.router)
+app.include_router(friend.router)
