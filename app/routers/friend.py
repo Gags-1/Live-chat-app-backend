@@ -73,7 +73,7 @@ def get_friends_list(db: Session = Depends(get_db), current_user: models.User = 
         (models.Friendship.user_id == current_user.id) | (models.Friendship.friend_id == current_user.id),
         models.Friendship.status == "accepted"
     ).all()
-    
+        
     friends_list = []
     for friendship in friends:
         friend_id = friendship.friend_id if friendship.user_id == current_user.id else friendship.user_id
